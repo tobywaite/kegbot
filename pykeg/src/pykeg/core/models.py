@@ -374,9 +374,12 @@ class Keg(models.Model):
   start_time = models.DateTimeField(default=datetime.datetime.now)
   end_time = models.DateTimeField(default=datetime.datetime.now)
   status = models.CharField(max_length=128, choices=(
-     ('online', 'online'),
-     ('offline', 'offline'),
-     ('coming soon', 'coming soon')))
+     ('requested', 'requested'),
+     ('rejected', 'rejected'),
+     ('in stock', 'in stock'),
+     ('on deck', 'on deck'),
+     ('on tap', 'on tap'),
+     ('empty', 'empty')))
   description = models.CharField(max_length=256, blank=True, null=True)
   origcost = models.FloatField(default=0, blank=True, null=True)
   spilled_ml = models.FloatField(default=0)
