@@ -32,6 +32,10 @@ class KegbotSiteAdmin(admin.ModelAdmin):
   list_filter = ('is_active',)
 admin.site.register(models.KegbotSite, KegbotSiteAdmin)
 
+class KegRequestAdmin(admin.ModelAdmin):
+  list_display = ('seqn', 'user', 'keg', 'time')
+admin.site.register(models.KegRequest, KegRequestAdmin)
+
 class KegTapAdmin(admin.ModelAdmin):
   list_display = ('name', 'meter_name', 'relay_name', 'current_keg')
 admin.site.register(models.KegTap, KegTapAdmin)

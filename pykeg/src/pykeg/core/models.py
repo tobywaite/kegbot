@@ -374,12 +374,12 @@ class Keg(models.Model):
   start_time = models.DateTimeField(default=datetime.datetime.now)
   end_time = models.DateTimeField(default=datetime.datetime.now)
   status = models.CharField(max_length=128, choices=(
-     ('requested', 'requested'),
-     ('rejected', 'rejected'),
-     ('in stock', 'in stock'),
-     ('on deck', 'on deck'),
-     ('on tap', 'on tap'),
-     ('empty', 'empty')))
+     ('requested', 'Requested'),
+     ('rejected', 'Rejected'),
+     ('in stock', 'In Stock'),
+     ('on deck', 'On Deck'),
+     ('on tap', 'On Tap'),
+     ('empty', 'Empty')))
   description = models.CharField(max_length=256, blank=True, null=True)
   origcost = models.FloatField(default=0, blank=True, null=True)
   spilled_ml = models.FloatField(default=0)
@@ -415,6 +415,13 @@ def _keg_post_save(sender, instance, **kwargs):
 
 post_save.connect(_keg_post_save, sender=Keg)
 
+class KegRequest(models.Model):
+  """ Table of requests for kegs by users """
+  seqn = models.PositiveIntegerField(editable=False)
+  user = models.ForeignKey(User, related_name='keg_request', blank=True,
+      null=True)
+  keg = models.ForeignKey(Keg, null=True, blank=True, related_name='keg_request')
+  time = models.DateTimeField()
 
 class Drink(models.Model):
   """ Table of drinks records """
